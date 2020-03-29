@@ -1,0 +1,29 @@
+@Test
+	public void test() throws MalformedURLException, InterruptedException {
+		 File appDir = new File("src");
+		   
+		    File app = new File(appDir, "ApiDemos-debug.apk");
+
+		DesiredCapabilities cap=new DesiredCapabilities();
+		cap.setCapability(MobileCapabilityType.PLATFORM_NAME,MobilePlatform.ANDROID);
+		cap.setCapability(MobileCapabilityType.DEVICE_NAME, "Android Emulator");
+		
+		cap.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, "200");
+		cap.setCapability(MobileCapabilityType.APP, app.getAbsolutePath());
+		AndroidDriver driver=new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"),cap );
+		
+		System.out.println(driver.isLocked());//LOcked condition
+		System.out.println(driver.getContext());
+		List<WebElement> abc=driver.findElements(By.className("android.widget.TextView"));
+		
+		TouchAction t=new TouchAction(driver);
+		t.tap(abc.get(2)).perform();
+		//TouchAction t1=new TouchAction(driver).longPress(el);
+		
+		
+		
+		//driver.installApp("");
+		driver.closeApp();
+		
+		//driver.currentActivity();
+		//driver.context(name)
